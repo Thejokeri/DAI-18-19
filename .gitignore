@@ -105,3 +105,4 @@ venv.bak/
 
 db/
 d.dat
+.DS_Store
