@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block nav %}
+<div class="col-3  p-3" style="background-color:#D6EAF8;">
+    <nav class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="./menu1" role="tab" aria-controls="v-pills-profile" aria-selected="false"href="#">Menu 1</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="./menu2" role="tab" aria-controls="v-pills-profile" aria-selected="false"href="#">Menu 2</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="./menu3" role="tab" aria-controls="v-pills-profile" aria-selected="false"href="#">Menu 3</a>                           
+    </nav>
+{% endblock %}
+
+{% block content %}
+<h1 class="display-3 border-bottom">Profile</h1>
+{% if usuario %}
+    <p>Username: {{usuario}}</p>
+{% endif %}
+{% if contrasenia %}
+    <p>Password: {{contrasenia}}</p>
+{% endif %}
+{% endblock %}

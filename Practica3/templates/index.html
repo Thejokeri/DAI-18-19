@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <title>Python Flask Application</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Cache-Control" content="no-cache"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="/static/css/sticky-footer-navbar.css" rel="stylesheet">
+    </head>
+    <body class="bg-white">
+        <header class="navbar navbar-light bg-dark" class="container">
+                <a class="navbar-brand text-light" href=".">
+                    <img src="/static/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo"> Lorem Ipsum 
+                </a>
+                {% if usuario %}
+                    <form class="form-inline" action="/logout" method="GET">
+                        <button type="submit" class="btn btn-outline-light ">Log out</button>
+                    </form>
+                {% else %}
+                    <form class="form-inline" action="/login" method="POST">
+                        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" id="user" name="username" placeholder="Username">
+                        <input type="password" class="form-control mr-sm-2 mb-2 mb-sm-0" id="passwd" name="password" placeholder="Password">
+                        <button type="submit" class="btn btn-outline-light mr-sm-2">Log in</button>
+                        {% if signup %}
+                            <button type="submit" formaction="/signup" class="btn btn-outline-light ">Sing up</button>
+                        {% endif %}
+                    </form>
+                {% endif %}
+        </header>
+        {% block register %}
+        <div class="container p-3">
+            {% if session['registered'] %}
+                <div class="alert alert-success">
+                    <strong>Success!</strong> User created. Now you can log in.
+                </div>
+            {% endif %}           
+            <div class="row">
+                {% block nav %}
+                <div class="col-3  p-3" style="background-color:#D6EAF8;">
+                    <nav class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="./menu1" role="tab" aria-controls="v-pills-profile" aria-selected="false"href="#">Menu 1</a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="./menu2" role="tab" aria-controls="v-pills-profile" aria-selected="false"href="#">Menu 2</a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="./menu3" role="tab" aria-controls="v-pills-profile" aria-selected="false"href="#">Menu 3</a>
+                    </nav>
+                    {% endblock %}
+                    {% if recents %}
+                    <br class="border-bottom">
+                    <nav>
+                        <p class="border-top pt-4">Recientes</p>
+                        {% for i in recents %}
+                            <a class="nav-link" href={{i}}>{{i}}</a>
+                        {% endfor %}
+                    </nav>
+                    {% endif %}
+                </div>
+                <main class="col-9">
+                    <article>
+                        {% block content %}
+                            {% if usuario %}
+                                <h1 class="display-3 border-bottom">Bienvenido {{usuario}}</h1>
+                                <p>Páginal inicial</p>
+                                <form action="/profile" method="POST">
+                                    <button type="submit" class="btn btn-secondary">Your profile</button>
+                                    <button type="submit" formaction="/editprofile" class="btn btn-secondary">Edit profile</button>
+                                </form>
+                            {% else %}
+                                <h1 class="display-3 border-bottom">Bienvenido</h1>
+                                <p>Páginal inicial</p>
+                            {% endif %}
+                        {% endblock %}
+                    </article>
+                </main>
+            </div>
+        </div>
+        {% endblock %}
+        <footer class="footer font-small bg-dark">
+            <div class="container text-center text-light p-3">
+                <span>
+                    © 2018 Copyright - Fernando Talavera Mendoza
+                </span>
+            </div>
+        </footer>
+    </body>
+</html>
