@@ -103,6 +103,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+Practica1/
 db/
 d.dat
 .DS_Store
