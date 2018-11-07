@@ -1,5 +1,5 @@
 __author__ = "Fernando Talavera"
-__name__ = "Manejo de URLs"
+__name__ = "Para Nota 2: Creando Imagenes Dinamicas [Vectoriales]"
 __doc__ = """
 Desarrolle una aplicacion web sencilla que nos permita crear una imagen
 SVG [5] dinamica (que cambie cada vez que visitemos la pagina) y aleatoria. Por

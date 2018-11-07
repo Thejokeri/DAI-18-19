@@ -1,5 +1,5 @@
 __author__ = "Fernando Talavera"
-__name__ = "Manejo de URLs"
+__name__ = "Para Nota: Creando Imagenes Dinamicas [binarias]"
 __doc__ = """
 Ejercicio para crear una aplicacion web dinamica que a partir de ciertos
 parametros (GET) sea capaz de generar imagenes utilizando la funcion sobre 

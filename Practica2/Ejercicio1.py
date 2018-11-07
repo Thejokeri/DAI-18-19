@@ -1,5 +1,5 @@
 __author__ = "Fernando Talavera"
-__name__ = "Hello world"
+__name__ = "Sirviendo contenidos estáticos (imagenes, hojas de estilo, etc)"
 __doc__ = """
 En la pagina web oficial de Flask podemos encontrar un ejemplo minimalista
 ("Hola Mundo") en el que se utiliza el framework para crear un aplicacion
