@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% if success  == 'True' %}
+        <div class="alert alert-success alert-dismissible fade show container" role="alert">
+            <strong>Se ha añadido con éxito!</strong>
+        </div>
+    {% else %}
+        {% if nosuccess  == 'True' %}
+            <div class="alert alert-danger alert-dismissible fade show container" role="alert">
+                <strong>Ha habido un problema!</strong> Fallo a la hora de añadir el restaurante.
+            </div>
+        {% endif %}
+    {% endif %} 
+    {% if form_add %}
+        <h1>Añadir restaurante</h1>
+        <form action="{% url 'add_restaurant' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Nombre del restaurante:</label>
+                {{ form_add.nombre }}
+            </div>
+                    
+            <label>Localización:</label>
+                    
+            <div class="input-group form-group">
+                {{ form_add.locationx }}  
+                <div class="input-group-prepend">
+                    <div class="input-group-text">,</div>
+                </div>
+                {{ form_add.locationy }}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-dark btn-lg btn-block">Añadir</button>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <footer class="font-small bg-dark fixed-bottom">
+{% endblock %}

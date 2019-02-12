@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% if success  == 'True' %}
+        <div class="alert alert-success alert-dismissible fade show container" role="alert">
+            <strong>Se ha eliminado con éxito!</strong>
+        </div>
+    {% else %}
+        {% if nosuccess  == 'True' %}
+            <div class="alert alert-danger alert-dismissible fade show container" role="alert">
+                <strong>Ha habido un problema!</strong> Fallo a la hora de borrar el restaurante.
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if form %}
+        <p>¿Seguro que quieres eliminar el restaurante: <strong> {{ name }}</strong>?</p>
+        <div class="form-inline">
+            <form class="p-1" action="{% url 'delete_restaurant' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ id }}">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit"  class="btn btn-dark">Si</button>    
+            </form>
+            <form class="p-1" action="{% url 'index' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit"  class="btn btn-dark">No</button>    
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <footer class="font-small bg-dark fixed-bottom">
+{% endblock %}

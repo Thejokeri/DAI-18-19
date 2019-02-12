@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Mapa</h1>
+    {% if name %}
+        <p><strong id="nombre">{{ name }}</strong></p>
+    {% endif %}
+    
+    {% if location %}
+        <p id="location">{{ location }}</p>
+    {% endif %}
+
+    <div class="p-2" id="map"></div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        var map;
+        function initMap() {
+            var nombre = $("#nombre").text()
+            var location = $('#location').text()
+
+            location = location.replace(/[\(\)]/g,'').split(',');
+
+            var myLatLng = {lat: parseFloat(location[1]), lng: parseFloat(location[0])};
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: parseFloat(location[1]), lng: parseFloat(location[0])},
+                zoom: 10
+            });
+            
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: nombre
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3ZXif6-ZQ3WF0-k1ZR89Yyyb3gVVYaus&callback=initMap"async defer></script>
+{% endblock %}
+
+{% block footer %}
+    <footer class="font-small bg-dark fixed-bottom">
+{% endblock %}

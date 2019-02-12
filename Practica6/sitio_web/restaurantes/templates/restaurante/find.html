@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+    {% if noresult %}
+        <h2> Sin resultados </h1>
+        <article class="text-center">
+            <img src="{% static 'img/no-results.png' %}" class="center" alt="no-results"/>
+        </article>
+    {% else %}
+        <h2>Resultado de la busqueda</h1>
+
+        <table class="table ">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Coordenadas</th>
+                    <th scope="col">Operación</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in lista %}
+                <tr>
+                    <th scope="row">{{ row.name }}</td>
+                    <td>{{ row.location.coordinates }}</td>
+                    <td class="form-inline">
+                        <form class="p-1" action="{% url 'modify_restaurant' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="PREVIOUS">
+                            <input type="hidden" name="id" value="{{ row.id }}">
+                            <input type="hidden" name="nombre" value="{{ row.name }}">
+                            <button type="submit"  class="btn btn-dark">Modificar</button>    
+                        </form>
+                        <form class="p-1" action="{% url 'delete_restaurant' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="PREVIOUS">
+                            <input type="hidden" name="id" value="{{ row.id }}">
+                            <input type="hidden" name="nombre" value="{{ row.name }}">
+                            <button type="submit" class="btn btn-dark">Borrar</button>
+                        </form>
+                        <form class="p-1" action="{% url 'list_plate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ row.id }}">
+                            <input type="hidden" name="nombre" value="{{ row.name }}">
+                            <button type="submit"  class="btn btn-dark">Listar platos</button>   
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}             
+            </tbody>
+        </table>
+    {% endif%}
+{% endblock %}

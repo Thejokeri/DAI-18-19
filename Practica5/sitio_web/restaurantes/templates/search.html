@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h2>Busca el restaurante:</h2>
+<form class="form-inline mt-5" action="{% url 'find' %}" method="POST">
+    {% csrf_token %}
+    {{ form_search }}
+    <button type="submit" class="btn btn-outline-dark mr-sm-2">Search</button>
+</form>
+{% endblock %}
+
+{% block footer %}
+    <footer class="font-small bg-dark fixed-bottom">
+{% endblock %}

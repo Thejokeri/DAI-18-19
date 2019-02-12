@@ -1,0 +1,62 @@
+{% load static %}
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <title>Restaurantes</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Cache-Control" content="no-cache"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="icon" type="image/png" href="{% static 'img/logo.png' %}">
+    </head>
+    <body class="bg-white">
+        <header class="navbar navbar-expand-lg navbar-light bg-dark" class="container">
+                <a class="navbar-brand text-light" href="{% url 'index' %}">
+                    <img src="{% static 'img/logo-restaurant.png' %}" width="32" height="32" class="d-inline-block mr-2" alt="Logo"> Restaurantes
+                </a>
+
+                <ul class="navbar-nav mr-auto ml-2">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'add' %}">Añadir restaurante</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'search' %}">Modificar restaurante</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'search' %}">Borrar restaurante</a>
+                    </li>
+                </ul>
+                {% if navsearch %}
+                    <form class="form-inline" action="{% url 'find' %}" method="POST">
+                        {% csrf_token %}
+                        {{ form_search }}
+                        <button type="submit" class="btn btn-outline-light mr-sm-2">Search</button>
+                    </form>
+                {% endif %}
+        </header>
+        <main class="container d-flex justify-content-center p-5">
+            <article class="w-100">
+                {% block content %}
+                    <h1 class="display-4 p-1">La base de datos de los restaurantes</h1>
+                    <hr>
+                    <img class=" text-center img-fluid rounded" src="{% static 'img/restaurants.png' %}" width="1000">
+                {% endblock %}
+            </article>
+        </main>
+        {% block footer %}
+        <footer class="font-small bg-dark">
+        {% endblock %}
+            <div class="text-center text-light p-3">
+                <span>
+                    © 2018 Copyright - Fernando Talavera Mendoza
+                </span>
+            </div>
+        </footer>
+    </body>
+</html>

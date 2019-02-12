@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% if success  == 'True' %}
+        <div class="alert alert-success alert-dismissible fade show container" role="alert">
+            <strong>Se ha modificado con éxito!</strong>
+        </div>
+    {% else %}
+        {% if nosuccess  == 'True' %}
+            <div class="alert alert-danger alert-dismissible fade show container" role="alert">
+                <strong>Ha habido un problema!</strong> Fallo a la hora de modificar el restaurante.
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if form %}
+        <h1>Modificar restaurante</h1>
+        {% for row in lista %}
+            <p><strong>{{ row.name }}</strong></p>
+        {% endfor %}
+        <form class="mt-5" action="{% url 'modify' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Nombre del restaurante:</label>
+                {{ form_modify.nombre }}
+            </div>
+
+            <label>Localización:</label>
+                    
+            <div class="input-group form-group">
+                {{ form_modify.locationx }}  
+                <div class="input-group-prepend">
+                    <div class="input-group-text">,</div>
+                </div>
+                {{ form_modify.locationy }}
+            </div>
+            <div>
+                {% for row in lista %}
+                <input type="hidden" name="id" value="{{ row.id }}">
+                {% endfor %}
+                <input type="hidden" name="_method" value="PUT">
+                <button type="submit" class="btn btn-dark btn-lg btn-block">Modificar</button>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <footer class="font-small bg-dark fixed-bottom">
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+    {% if noresult %}
+        <h2> Este restaurante no tiene ningún plato. </h1>
+        <article class="text-center">
+            <img src="{% static 'img/noresultplate.gif' %}" class="center" alt="no-results" width="65%"/>
+            <form class="p-1" action="{% url 'add_plate' %}" method="GET">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ id }}">
+                <input type="hidden" name="nombrerestaurante" value="{{ name }}">
+                <button type="submit" class="btn btn-info">Añade uno ahora!</button>
+            </form>
+        </article>
+    {% else %}
+        <h1 class="pb-1">Restaurante: {{ name }}</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre del plato</th>
+                    <th scope="col">Tipo de cocina</th>
+                    <th scope="col">Alérgenos</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Operación</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in lista %}
+                <tr>
+                    <th scope="row">{{ row.nombre }}</td>
+                    <td>{{ row.tipoCocina }}</td>
+                    <td>{% for a in row.alergenos %} {{ a }} {% endfor %}</td>
+                    <td>{{ row.precio }} €</td>
+                    <td class="form-inline">
+                        <form class="p-1" action="{% url 'modify_plate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="PREVIOUS">
+                            <input type="hidden" name="idplato" value="{{ row.id }}">
+                            <input type="hidden" name="idrestaurante" value="{{ id }}">
+                            <input type="hidden" name="nombreplato" value="{{ row.nombre }}">
+                            <input type="hidden" name="tipococina" value="{{ row.tipoCocina }}">
+                            <input type="hidden" name="alergenos" value="{{ row.alergenos }}">
+                            <input type="hidden" name="precio" value="{{ row.precio }}">
+                            <button type="submit"  class="btn btn-dark">Modificar</button>    
+                        </form>
+                        <form class="p-1" action="{% url 'delete_plate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="PREVIOUS">
+                            <input type="hidden" name="idplato" value="{{ row.id }}">
+                            <input type="hidden" name="nombre" value="{{ row.nombre }}">
+                            <button type="submit" class="btn btn-dark">Borrar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}             
+            </tbody>
+        </table>
+        <article class="text-center">
+            <form class="p-1" action="{% url 'add_plate' %}" method="GET">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ id }}">
+                <input type="hidden" name="nombrerestaurante" value="{{ name }}">
+                <button type="submit" class="btn btn-info">Añadir plato</button>
+            </form>
+        </article>
+    {% endif%}
+{% endblock %}

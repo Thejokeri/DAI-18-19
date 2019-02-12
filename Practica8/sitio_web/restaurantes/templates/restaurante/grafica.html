@@ -1,0 +1,87 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Gráfica</h1>
+    <div id="graph_names"></div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(function(){ 
+            var data;
+
+            $.ajax({
+                url: "{% url 'obtener_restaurantes' %}",
+                type: 'get',               
+                success: function(datos, page) {
+                    Grafica_Nombres(datos); 
+                },
+                failure: function(datos) { 
+                    alert('esto no vá');
+                }
+            });
+
+            function Grafica_Nombres(datos) {
+                if(datos.length > 0){
+                    var dictionary = {};
+                    var datos = JSON.parse(datos);
+
+                    for(var i = 0; i < datos.length; i++){
+                        if(!(datos[i] in dictionary)){
+                            dictionary[datos[i]] = 0;
+                        }else{
+                            dictionary[datos[i]] += 1;
+                        }
+                    }
+
+                    for (var key in dictionary) {
+                        if (dictionary.hasOwnProperty(key)) {           
+                            if(dictionary[key] < 70 || key == ""){
+                                delete dictionary[key];
+                            }
+                        }
+                    }
+
+                    const keys = Object.keys(dictionary)
+                    var values = [];
+
+                    for(var key in dictionary){
+                        values.push(dictionary[key])
+                    }
+
+                    var series = []
+                    
+                    for(var i = 0; i < keys.length; i++){
+                        series.push({
+                            name: keys[i],
+                            data: [values[i]]
+                        });
+                    }
+
+                    var myChart = Highcharts.chart('graph_names', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Franquicias con más de 70 restaurantes'
+                        },
+                        xAxis: {
+                            categories: [keys]
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Cantidad'
+                            }
+                        },
+                        series: series
+                    });
+                }
+            };
+        });
+    </script>
+{% endblock %}
+
+{% block footer %}
+    <footer class="font-small bg-dark fixed-bottom">
+{% endblock %}

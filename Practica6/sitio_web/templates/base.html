@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+    {% block body %}
+
+    {% if messages %}
+    <div class="container d-flex p-5">
+      <strong>Messages:</strong>
+      <ul class="list-inline">
+        {% for message in messages %}
+        <li class="list-inline-item">{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <div class="container d-flex p-5">
+      <strong class="p-2">Menu:</strong>
+      <ul class="list-group">
+        {% if user.is_authenticated %}
+        <li class="list-group-item"><a href="{% url 'account_email' %}">Change E-mail</a></li>
+        <li class="list-group-item"><a href="{% url 'account_logout' %}">Sign Out</a></li>
+        {% else %}
+        <li class="list-group-item"><a href="{% url 'account_login' %}">Sign In</a></li>
+        <li class="list-group-item"><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    {% block content %}
+    {% endblock %}
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}

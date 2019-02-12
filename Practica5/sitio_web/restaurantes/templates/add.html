@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+
+{% block content %}
+{% if success %}
+    <div class="alert alert-success alert-dismissible fade show container" role="alert">
+        <strong>Se ha añadido con éxito!</strong>
+    </div>
+{% else %}
+    <h1>Añadir restaurante</h1>
+    <form class="mt-5" action="{% url 'add' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Nombre del restaurante:</label>
+            {{ form_add.nombre }}
+        </div>
+                
+        <label>Localización:</label>
+                
+        <div class="input-group form-group">
+            {{ form_add.locationx }}  
+            <div class="input-group-prepend">
+                <div class="input-group-text">,</div>
+            </div>
+                {{ form_add.locationy }}
+        </div>
+        <div>
+            <button type="submit" class="btn btn-dark btn-lg btn-block">Añadir</button>
+        </div>
+    </form>
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+    <footer class="font-small bg-dark fixed-bottom">
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% if success  == 'True' %}
+        <div class="alert alert-success alert-dismissible fade show container" role="alert">
+            <strong>Se ha modificado con éxito!</strong>
+        </div>
+    {% else %}
+        {% if nosuccess  == 'True' %}
+            <div class="alert alert-danger alert-dismissible fade show container" role="alert">
+                <strong>Ha habido un problema!</strong> Fallo a la hora de modificar el plato.
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if form %}
+        <h1>Modificar Plato</h1>
+        <form action="{% url 'modify_plate' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Nombre del plato:</label>
+                {{ form_modify.nombre }}
+            </div>
+                    
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Tipo de cocina:</label>
+                {{ form_modify.tipocomida }}
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Alérgenos:</label>
+                {{ form_modify.alergenos }}
+            </div>
+
+            <div class="form-group">
+                <label>Precio:</label>
+                {{ form_modify.precio }}
+            </div>
+
+            <div>
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="idrestaurante" value="{{ idrestaurante }}">
+                <input type="hidden" name="idplato" value="{{ idplato }}">
+                <button type="submit" class="btn btn-dark btn-lg btn-block">Modificar</button>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <footer class="font-small bg-dark fixed-bottom">
+{% endblock %}
